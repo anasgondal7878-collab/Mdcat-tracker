@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDCAT 2026 Command Center</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    padding:20px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+header h1{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.stat-box{
+    background:#334155;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.stat-box h2{
+    color:#38bdf8;
+    margin-bottom:8px;
+}
+
+.progress-bar{
+    width:100%;
+    height:25px;
+    background:#475569;
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#22c55e,#84cc16);
+    transition:0.4s;
+}
+
+.task{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#334155;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+}
+
+.task label{
+    font-size:1rem;
+}
+
+input[type="checkbox"]{
+    transform:scale(1.5);
+}
+
+.chapter-inputs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.chapter-inputs input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin-top:8px;
+}
+
+.score{
+    text-align:center;
+    font-size:2rem;
+    font-weight:bold;
+    color:#22c55e;
+}
+
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.badge{
+    background:#16a34a;
+    padding:10px 15px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    margin-top:20px;
+    color:#94a3b8;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+<h1>🩺 MDCAT 2026 COMMAND CENTER</h1>
+<p>Stay Consistent. Stay Disciplined. Become a Doctor.</p>
+</header>
+
+<div class="card">
+<h2>Exam Countdown</h2>
+<div class="stats">
+
+<div class="stat-box">
+<h2 id="daysLeft">0</h2>
+<p>Days Until MDCAT</p>
+</div>
+
+<div class="stat-box">
+<h2 id="streak">0</h2>
+<p>Current Streak</p>
+</div>
+
+<div class="stat-box">
+<h2 id="dailyScore">0%</h2>
+<p>Today's Score</p>
+</div>
+
+</div>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Today's Routine</h2>
+
+<div class="task">
+<label>4:00 AM - Wake Up</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>4:05 - 5:50 AM - Complete 1 Biology Chapter</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>5:50 AM - Go Academy</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>11:30 AM - Reach Hostel</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>1:30 PM - Start Study</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>1:30 PM - 6:00 PM Academy Work</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>6:00 PM - 8:00 PM Mentrr Work</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>8:00 PM - 8:30 PM Dinner</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>8:30 PM - 11:00 PM Complete 1 Chemistry/Physics Chapter</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+<div class="task">
+<label>Sleep Before 11 PM</label>
+<input type="checkbox" class="taskCheck">
+</div>
+
+</div>
+
+<div class="card">
+<h2>Chapter Tracking</h2>
+
+<div class="chapter-inputs">
+
+<div>
+<label>Biology Chapters Completed</label>
+<input type="number" id="bio" min="0" value="0">
+</div>
+
+<div>
+<label>Chemistry Chapters Completed</label>
+<input type="number" id="chem" min="0" value="0">
+</div>
+
+<div>
+<label>Physics Chapters Completed</label>
+<input type="number" id="phys" min="0" value="0">
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>Performance</h2>
+<div class="score" id="scoreText">
+0 / 100
+</div>
+</div>
+
+<div class="card">
+<h2>Achievement Badges</h2>
+
+<div class="badges" id="badges">
+<span class="badge">🏅 Start Your Journey</span>
+</div>
+</div>
+
+<footer>
+Royal Discipline • MDCAT 2026 • Every Day Counts
+</footer>
+
+</div>
+
+<script>
+
+const examDate = new Date("August 16, 2026");
+
+function updateCountdown(){
+    const today = new Date();
+    const diff = examDate - today;
+
+    const days = Math.ceil(diff / (1000*60*60*24));
+
+    document.getElementById("daysLeft").innerText =
+        days > 0 ? days : "Exam Day!";
+}
+
+updateCountdown();
+
+const checks = document.querySelectorAll(".taskCheck");
+
+function saveData(){
+
+    const checkedStates = [];
+
+    checks.forEach(c=>{
+        checkedStates.push(c.checked);
+    });
+
+    localStorage.setItem(
+        "mdcatChecks",
+        JSON.stringify(checkedStates)
+    );
+
+    localStorage.setItem(
+        "bio",
+        document.getElementById("bio").value
+    );
+
+    localStorage.setItem(
+        "chem",
+        document.getElementById("chem").value
+    );
+
+    localStorage.setItem(
+        "phys",
+        document.getElementById("phys").value
+    );
+
+    updateScore();
+}
+
+function loadData(){
+
+    const saved =
+        JSON.parse(localStorage.getItem("mdcatChecks"));
+
+    if(saved){
+        checks.forEach((c,index)=>{
+            c.checked = saved[index];
+        });
+    }
+
+    document.getElementById("bio").value =
+        localStorage.getItem("bio") || 0;
+
+    document.getElementById("chem").value =
+        localStorage.getItem("chem") || 0;
+
+    document.getElementById("phys").value =
+        localStorage.getItem("phys") || 0;
+
+    updateScore();
+}
+
+function updateScore(){
+
+    let completed = 0;
+
+    checks.forEach(c=>{
+        if(c.checked) completed++;
+    });
+
+    const total = checks.length;
+
+    const percent =
+        Math.round((completed/total)*100);
+
+    document.getElementById("dailyScore")
+        .innerText = percent + "%";
+
+    document.getElementById("scoreText")
+        .innerText = percent + " / 100";
+
+    document.getElementById("progressFill")
+        .style.width = percent + "%";
+
+    const badges = [];
+
+    if(percent >= 50)
+        badges.push("🔥 Productive Day");
+
+    if(percent >= 80)
+        badges.push("⚡ Excellent Day");
+
+    if(percent === 100)
+        badges.push("👑 Perfect Day");
+
+    if(Number(document.getElementById("bio").value) >= 10)
+        badges.push("🧬 10 Biology Chapters");
+
+    if(Number(document.getElementById("chem").value) >= 10)
+        badges.push("🧪 10 Chemistry Chapters");
+
+    if(Number(document.getElementById("phys").value) >= 10)
+        badges.push("📐 10 Physics Chapters");
+
+    document.getElementById("badges").innerHTML =
+        badges.length ?
+        badges.map(b=>`<span class="badge">${b}</span>`).join("") :
+        '<span class="badge">🏅 Start Your Journey</span>';
+}
+
+checks.forEach(c=>{
+    c.addEventListener("change",saveData);
+});
+
+document.getElementById("bio")
+.addEventListener("input",saveData);
+
+document.getElementById("chem")
+.addEventListener("input",saveData);
+
+document.getElementById("phys")
+.addEventListener("input",saveData);
+
+loadData();
+
+</script>
+
+</body>
+</html>
